@@ -71,6 +71,10 @@ class SparkCWStatsdSink(
   def metricsNamespace: Option[String] = sparkConfig.get(config.METRICS_NAMESPACE)
   def sparkAppId: Option[String] = sparkConfig.getOption("spark.app.id")
   def sparkAppName: Option[String] = sparkConfig.getOption("spark.app.name")
+  var sparkAppNameStr = ""
+  if (sparkAppName.isDefined) {
+    sparkAppNameStr = sparkAppName.toString
+  }
   def executorId: Option[String] = sparkConfig.getOption("spark.executor.id")
   // only available in cluster mode
   def attemptId: Option[String] = sparkConfig.getOption("spark.app.attempt.id")
@@ -91,7 +95,7 @@ class SparkCWStatsdSink(
 
   checkMinimalPollingPeriod(pollUnit, pollPeriod)
 
-  val reporter = new SparkCWStatsdReporter(registry, host, port, prefix, jobflowId, instanceId, privateIp, sparkAttemptSuffix)
+  val reporter = new SparkCWStatsdReporter(registry, host, port, prefix, jobflowId, instanceId, privateIp, sparkAttemptSuffix, sparkAppNameStr)
 
   override def start(): Unit = {
     reporter.start(pollPeriod, pollUnit)

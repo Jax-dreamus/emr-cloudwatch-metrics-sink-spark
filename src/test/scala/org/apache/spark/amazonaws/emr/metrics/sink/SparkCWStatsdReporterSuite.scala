@@ -32,7 +32,8 @@ class SparkCWStatsdReporterSuite extends SparkFunSuite with PrivateMethodTester 
   val jobflowId = "j-E0X1A2M3P4L5E"
   val instanceId = "i-0e1x2a3m4p5l6e7id"
   val privateIp = "ip-10-0-0-10"
-  val sparkCWStatsdReporter = new SparkCWStatsdReporter(registry, host, port, prefix, jobflowId, instanceId, privateIp)
+  val sparkAppNameStr = "test-spark-app"
+  val sparkCWStatsdReporter = new SparkCWStatsdReporter(registry, host, port, prefix, jobflowId, instanceId, privateIp, sparkAppNameStr)
 
   test("makeTags method in SparkCWStatsdReporter") {
     val metricName = "application_0000000000000_0001.instance.namespace.SparkCWStatsdSinkTestMetricName"

@@ -53,6 +53,7 @@ class SparkCWStatsdReporter(
                           instanceId: String = "",
                           privateIp: String = "",
                           sparkAttemptSuffix: String = "",
+                          sparkAppNameStr: String = "",
                           filter: MetricFilter = MetricFilter.ALL,
                           rateUnit: TimeUnit = TimeUnit.SECONDS,
                           durationUnit: TimeUnit = TimeUnit.MILLISECONDS)
@@ -213,7 +214,7 @@ class SparkCWStatsdReporter(
     }
     tagString = "#ApplicationID:" + sparkAppId + ",MetricInstance:" + metricInstance + ",Namespace:" +
       nameSpace + ",jobflowId:" + jobflowId + ",instanceID:" + instanceId + ",privateIp:" + privateIp +
-    ",FullMetricName:" + metricName
+    ",FullMetricName:" + metricName + ",BatchName:" + sparkAppNameStr
     return (tagString, shortName)
   }
 
